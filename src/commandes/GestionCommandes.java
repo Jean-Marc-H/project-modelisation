@@ -1,22 +1,29 @@
 package commandes;
 
+import paiement.Paiement;
+import salle.Table;
+
 import java.util.ArrayList;
 
 public class GestionCommandes {
-    public ArrayList<Commande> commandesActives=new ArrayList<Commande>();
-    public ArrayList<Commande> commandesCompletees=new ArrayList<Commande>();
+    private ArrayList<Commande> commandesActives=new ArrayList<Commande>();
+    private ArrayList<Paiement> commandesCompletees=new ArrayList<Paiement>();
 
-    public void creerCommande(){
-        Commande nouvelleCommande=new Commande();
+    public void creerCommande(Table table){
+        Commande nouvelleCommande=new Commande(table);
+        table.utiliser();
+        table.setCommande(nouvelleCommande);
         this.commandesActives.add(nouvelleCommande);
     }
 
-    public void completerCommande(Commande commande){
-        this.commandesActives.remove(commande);
-        this.commandesCompletees.add(commande);
+    public void completerCommande(Paiement paiement){
+        this.commandesActives.remove(paiement.getCommande());
+        paiement.getCommande().getTable().liberer();
+        this.commandesCompletees.add(paiement);
     }
 
     public void annulerCommande(Commande commande){
         this.commandesActives.remove(commande);
+        commande.getTable().liberer();
     }
 }

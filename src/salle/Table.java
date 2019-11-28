@@ -1,15 +1,28 @@
 package salle;
 
-public class Table {
-    int sieges;
-    boolean occupe;
+import commandes.Commande;
 
-    public int getSieges(){
-        return this.sieges;
+public class Table {
+    private int numero;
+    private boolean occupe;
+    private Commande commande;
+
+    public Table(int numero){
+        this.numero=numero;
+        this.occupe=false;
+        this.commande=null;
+    }
+
+    public int getNumero(){
+        return this.numero;
     }
 
     public boolean estLibre(){
         return this.occupe;
+    }
+
+    public void setCommande(Commande commande){
+        this.commande=commande;
     }
 
     public void utiliser(){

@@ -3,10 +3,14 @@ package articles;
 import java.util.ArrayList;
 
 public class MenuArticles {
-    ArrayList<Article> catalogue=new ArrayList<Article>();
+    private ArrayList<Article> catalogue=new ArrayList<Article>();
 
     public void ajouterArticle(Article article){
         this.catalogue.add(article);
+    }
+
+    public ArrayList<Article> getCatalogue(){
+        return this.catalogue;
     }
 
     public Article getArticle(Article article){
