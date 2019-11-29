@@ -18,6 +18,10 @@ public class Commande {
     public Table getTable(){
         return this.table;
     }
+    
+    public HashMap<Article, Integer> getListeArticles(){
+    	return articles;
+    }
 
     public void ajouterArticle(Article article, int quantite){
         if(this.articles.containsKey(article)){

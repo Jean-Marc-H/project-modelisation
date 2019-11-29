@@ -1,5 +1,8 @@
 package articles;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 
 public class MenuArticles {
@@ -29,5 +32,30 @@ public class MenuArticles {
             }
         }
         return null;
+    }
+    
+    
+    public void GetMenuFile() {
+		try {
+			
+			String file = System.getProperty("user.dir") + "\\Fichier\\Menu.csv";
+			String[] content = new String[2];
+			BufferedReader br = new BufferedReader(new FileReader(file));
+			String line = "";
+			
+			//Skip first line
+			br.readLine();
+			
+			while ((line = br.readLine()) != null) {
+				content = line.split(",");
+				String nom = content[0];
+				Double prix = Double.parseDouble(content[1]);
+				catalogue.add(new Article(nom, prix));
+			}
+			
+		} catch (Exception e) {
+			// File not found
+		}
+
     }
 }

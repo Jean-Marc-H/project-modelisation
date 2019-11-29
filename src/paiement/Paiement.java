@@ -16,6 +16,14 @@ public class Paiement {
     public Commande getCommande(){
         return this.commande;
     }
+    
+    public String getMethodePaiement(){
+        return this.methodePaiement.name();
+    }
+    
+    public void setMethodePaiement(MethodePaiement methodePaiement){
+        this.methodePaiement = methodePaiement;
+    }
 
     public void payer(MethodePaiement methodePaiement){
         this.methodePaiement=methodePaiement;
