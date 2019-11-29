@@ -1,6 +1,7 @@
 package commandes;
 
 import paiement.Paiement;
+import paiement.Paiement.MethodePaiement;
 import salle.Table;
 
 import java.io.File;
@@ -8,6 +9,7 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Random;
 
 import articles.Article;
 
@@ -33,6 +35,18 @@ public class GestionCommandes {
         commande.getTable().liberer();
     }
     
+    public static void main(String[] args) {
+    	Commande commande = new Commande(new Table(1));
+    	for(int i = 0; i<10; i++) {
+    		Random rand = new Random();
+    	    int randomNum = rand.nextInt((5 - 1) + 1) + 1;
+    	    int rand2 = rand.nextInt((20 - 1) + 1) + 1;
+    		commande.ajouterArticle(new Article("asdasd", rand2), randomNum);
+    	}
+    	Paiement pa = new Paiement(commande);
+    	pa.setMethodePaiement(MethodePaiement.COMPTANT);
+    	archiverCommande(pa);
+    }
 
     public static void archiverCommande (Paiement paiement) {
 		Commande commande = paiement.getCommande();
