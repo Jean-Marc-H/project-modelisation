@@ -35,7 +35,7 @@ public class MenuArticles {
     }
     
     
-    public void GetMenuFile() {
+    public void getMenuFile() {
 		try {
 			
 			String file = System.getProperty("user.dir") + "\\Fichier\\Menu.csv";
@@ -50,7 +50,7 @@ public class MenuArticles {
 				content = line.split(",");
 				String nom = content[0];
 				Double prix = Double.parseDouble(content[1]);
-				catalogue.add(new Article(nom, prix));
+				this.catalogue.add(new Article(nom, prix));
 			}
 			
 		} catch (Exception e) {

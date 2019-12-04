@@ -20,7 +20,7 @@ public class Commande {
     }
     
     public HashMap<Article, Integer> getListeArticles(){
-    	return articles;
+    	return this.articles;
     }
 
     public void ajouterArticle(Article article, int quantite){

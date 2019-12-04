@@ -26,6 +26,7 @@ public class GestionCommandes {
         this.commandesActives.remove(paiement.getCommande());
         paiement.getCommande().getTable().liberer();
         this.commandesCompletees.add(paiement);
+        archiverCommande(paiement);
     }
 
     public void annulerCommande(Commande commande){
@@ -41,10 +42,10 @@ public class GestionCommandes {
 		try (PrintWriter writer = new PrintWriter(new File(file))) {
 
 			StringBuilder sb = new StringBuilder();
-			sb.append("Méthode de Paiement:," + paiement.getMethodePaiement() + ",\n\n\n");
+			sb.append("Methode de Paiement:," + paiement.getMethodePaiement() + ",\n\n\n");
 
-			sb.append("Liste d'article commandé,\n");
-			sb.append("Nom,Quantité,Total,\n");
+			sb.append("Liste d'article commande,\n");
+			sb.append("Nom,Quantite,Total,\n");
 			for (Article article : commande.getListeArticles().keySet()) {
 				double total = commande.getListeArticles().get(article) * article.getPrix();
 				sb.append(article.getNom() + "," + commande.getListeArticles().get(article) + "," + total + ",\n");

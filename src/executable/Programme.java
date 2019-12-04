@@ -10,8 +10,10 @@ public class Programme {
     public static Salle salle;
 
     public static void main(String[] args){
-        //load articles dans menuArticles
-        //load les tables dans la salle
+        menuArticles.getMenuFile();
+        for(int i=0;i<8;i++){
+            salle.ajouterTable(i);
+        }
         //load interface salle
     }
 }
