@@ -2,8 +2,15 @@ package interfaces;
 
 import commandes.Commande;
 
-public class InterfaceCommandes {
+import javax.swing.*;
+import java.awt.*;
+
+public class InterfaceCommande {
     private Commande commande;
+    private JFrame frmCommande;
+    private JTextField show_itemlist_selected_item;
+    private JTextField total;
+    private JTable table;
 
     /*
     -Lors de l'initialisation de l'interface, set la commande avec celle associée à la table sélectionnée
@@ -19,4 +26,16 @@ public class InterfaceCommandes {
         }
     -le total peut etre obtenu avec commande.calculerTotal()
      */
+    public void PopupScreen() {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    InterfaceCommande window = new InterfaceCommande();
+                    window.frmCommande.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 }

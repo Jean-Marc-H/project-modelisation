@@ -4,12 +4,12 @@ import commandes.Commande;
 
 public class Table {
     private int numero;
-    private boolean occupe;
+    private EtatTable etat;
     private Commande commande;
 
     public Table(int numero){
         this.numero=numero;
-        this.occupe=false;
+        this.etat=EtatTable.VIDE;
         this.commande=null;
     }
 
@@ -17,19 +17,27 @@ public class Table {
         return this.numero;
     }
 
-    public boolean estLibre(){
-        return this.occupe;
+    public EtatTable getEtat(){
+        return this.etat;
+    }
+
+    public void setProchainEtat(){
+        if(this.etat!=EtatTable.SALE)
+            this.etat=EtatTable.values()[this.etat.ordinal()+1];
+        else
+            this.etat=EtatTable.VIDE;
     }
 
     public void setCommande(Commande commande){
         this.commande=commande;
     }
 
-    public void utiliser(){
-        this.occupe=true;
-    }
-
-    public void liberer(){
-        this.occupe=false;
+    public enum EtatTable{
+        VIDE,
+        PRET,
+        EN_ATTENTE,
+        PRET_A_SERVIR,
+        SERVI,
+        SALE
     }
 }

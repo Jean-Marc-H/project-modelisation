@@ -17,21 +17,19 @@ public class GestionCommandes {
 
     public void creerCommande(Table table){
         Commande nouvelleCommande=new Commande(table);
-        table.utiliser();
         table.setCommande(nouvelleCommande);
         this.commandesActives.add(nouvelleCommande);
     }
 
     public void completerCommande(Paiement paiement){
         this.commandesActives.remove(paiement.getCommande());
-        paiement.getCommande().getTable().liberer();
         this.commandesCompletees.add(paiement);
         archiverCommande(paiement);
     }
 
     public void annulerCommande(Commande commande){
         this.commandesActives.remove(commande);
-        commande.getTable().liberer();
+        //CHANGER ETAT
     }
     
 
