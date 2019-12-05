@@ -2,6 +2,7 @@ package interfaces;
 
 import executable.Programme;
 import salle.Table;
+import paiement.Paiement;
 
 import javax.swing.*;
 import java.awt.*;
@@ -255,7 +256,7 @@ public class InterfaceSalle {
         interfaceCommande1.frmCommande.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-                System.out.println("Frame closing");
+                
                 formClosingEvent(interfaceCommande1, 0, table1);
             }
         });
@@ -263,49 +264,49 @@ public class InterfaceSalle {
         interfaceCommande2.frmCommande.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-                System.out.println("Frame closing");
+            	formClosingEvent(interfaceCommande2, 1, table2);
             }
         });
         
         interfaceCommande3.frmCommande.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-                System.out.println("Frame closing");
+            	formClosingEvent(interfaceCommande3, 2, table3);
             }
         });
         
         interfaceCommande4.frmCommande.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-                System.out.println("Frame closing");
+            	formClosingEvent(interfaceCommande4, 3, table4);
             }
         });
         
         interfaceCommande5.frmCommande.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-                System.out.println("Frame closing");
+            	formClosingEvent(interfaceCommande5, 4, table5);
             }
         });
         
         interfaceCommande6.frmCommande.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-                System.out.println("Frame closing");
+            	formClosingEvent(interfaceCommande6, 5, table6);
             }
         });
         
         interfaceCommande7.frmCommande.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-                System.out.println("Frame closing");
+            	formClosingEvent(interfaceCommande7, 6, table7);
             }
         });
         
         interfaceCommande8.frmCommande.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosed(java.awt.event.WindowEvent windowEvent) {
-                System.out.println("Frame closing");
+            	formClosingEvent(interfaceCommande8, 7, table8);
             }
         });
         
@@ -341,7 +342,8 @@ public class InterfaceSalle {
         	commande.frmCommande.setVisible(true);
     	}
     	
-    	if(Programme.salle.getTables().get(tableNumber).getEtat() == Table.EtatTable.VIDE || Programme.salle.getTables().get(tableNumber).getEtat() == Table.EtatTable.PRET_A_SERVIR) {
+    	if(Programme.salle.getTables().get(tableNumber).getEtat() == Table.EtatTable.VIDE || Programme.salle.getTables().get(tableNumber).getEtat() == Table.EtatTable.PRET_A_SERVIR
+    			|| Programme.salle.getTables().get(tableNumber).getEtat() == Table.EtatTable.SALE) {
     		
     		Programme.salle.getTables().get(tableNumber).setProchainEtat();
     		setCouleurTable(button, Programme.salle.getTables().get(tableNumber));
@@ -357,7 +359,7 @@ public class InterfaceSalle {
     private void formClosingEvent(InterfaceCommande commande, int tableNumber, JButton button) {
 
     	if(Programme.salle.getTables().get(tableNumber).getEtat() == Table.EtatTable.PRET && commande.etat == InterfaceCommande.closeResult.OK) {
-    		commande.etat = InterfaceCommande.closeResult.ANNULER;
+    		commande.etat = InterfaceCommande.closeResult.FERMER;
     		Programme.salle.getTables().get(tableNumber).setProchainEtat();
     		setCouleurTable(button, Programme.salle.getTables().get(tableNumber));
     		Thread thread = new Thread(){
@@ -374,6 +376,12 @@ public class InterfaceSalle {
     		      }
     		};
     		thread.start();
+    	}
+    	else if(Programme.salle.getTables().get(tableNumber).getEtat() == Table.EtatTable.SERVI && commande.etat == InterfaceCommande.closeResult.ARCHIVER) {
+    		Programme.salle.getTables().get(tableNumber).setProchainEtat();
+    		setCouleurTable(button, Programme.salle.getTables().get(tableNumber));
+    		Paiement paiement = new Paiement(Programme.gestionCommandes.getTableCommandeActive(Programme.salle.getTables().get(tableNumber)));
+    		Programme.gestionCommandes.completerCommande(paiement);
     	}
     }
     

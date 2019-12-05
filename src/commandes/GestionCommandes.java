@@ -36,6 +36,14 @@ public class GestionCommandes {
         return commandesActives.get(commandesActives.size()-1);
     }
     
+    public Commande getTableCommandeActive(Table table){
+        for(Commande commande : commandesActives) {
+        	if(commande.getTable() == table)
+        		return commande;
+        }
+        return null;
+    }
+    
 
     public void archiverCommande (Paiement paiement) {
 		Commande commande = paiement.getCommande();

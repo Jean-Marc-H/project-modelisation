@@ -31,6 +31,7 @@ public class InterfaceCommande {
 	private JButton btnAjouter;
 	private JButton btnRetirer;
 	private JButton btnArchiver;
+	private JButton btnFermer;
 	private JLabel lblNewLabel;
 	private JLabel lblTotal;
 	private JButton btnConfirmer;
@@ -126,18 +127,21 @@ public class InterfaceCommande {
 		//Annuler la commande: Enlève tous les items de la liste
 		btnAnnuler = new JButton("Annuler");
 		btnAnnuler.setBackground(new Color(255, 99, 71));
-		btnAnnuler.setBounds(144, 328, 89, 23);
+		btnAnnuler.setBounds(144, 300, 89, 23);
 		frmCommande.getContentPane().add(btnAnnuler);
 		
+		// Archivage
+		btnArchiver = new JButton("Archiver");
+		btnArchiver.setBounds(21, 300, 96, 23);
+		btnArchiver.setEnabled(false);
+		frmCommande.getContentPane().add(btnArchiver);
 		
-		//Archivage
-				btnArchiver = new JButton("Archiver");
-				btnArchiver.setBounds(144, 300, 89, 23);
-				btnArchiver.setEnabled(false);
-				frmCommande.getContentPane().add(btnArchiver);
-		
-		
-		//Action Event
+		// Fermer
+		btnFermer = new JButton("Fermer");
+		btnFermer.setBounds(144, 328, 89, 23);
+		frmCommande.getContentPane().add(btnFermer);
+
+		// Action Event
 		//Ajouter
 		btnAjouter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -241,11 +245,18 @@ public class InterfaceCommande {
 		btnArchiver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				//A modifier plus tard pour archiver
 				model.setRowCount(0);
 				total.setText("0.00");
-				commande = null;
 				etat = InterfaceCommande.closeResult.ARCHIVER;
+				frmCommande.dispose();
+			}
+		});
+		
+		
+		btnFermer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				etat = InterfaceCommande.closeResult.FERMER;
 				frmCommande.dispose();
 			}
 		});
@@ -269,6 +280,7 @@ public class InterfaceCommande {
 	public enum closeResult{
         OK,
         ANNULER,
-        ARCHIVER
+        ARCHIVER,
+        FERMER
     }
 }
