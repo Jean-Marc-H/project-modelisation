@@ -22,9 +22,9 @@ public class GestionCommandes {
     }
 
     public void completerCommande(Paiement paiement){
+        archiverCommande(paiement);
         this.commandesActives.remove(paiement.getCommande());
         this.commandesCompletees.add(paiement);
-        archiverCommande(paiement);
     }
 
     public void annulerCommande(Commande commande){

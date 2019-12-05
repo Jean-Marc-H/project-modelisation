@@ -387,7 +387,8 @@ public class InterfaceSalle {
     		Programme.salle.getTables().get(tableNumber).setProchainEtat();
     		setCouleurTable(button, Programme.salle.getTables().get(tableNumber));
     		Paiement paiement = new Paiement(Programme.gestionCommandes.getTableCommandeActive(Programme.salle.getTables().get(tableNumber)));
-    		Programme.gestionCommandes.completerCommande(paiement);
+    		paiement.getCommande().
+    		paiement.payer(Paiement.MethodePaiement.CARTE);
     	}
     }
     
