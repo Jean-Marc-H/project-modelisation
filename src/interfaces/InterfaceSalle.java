@@ -24,8 +24,7 @@ public class InterfaceSalle {
     private InterfaceCommande interfaceCommande6 = new InterfaceCommande(5);
     private InterfaceCommande interfaceCommande7 = new InterfaceCommande(6);
     private InterfaceCommande interfaceCommande8 = new InterfaceCommande(7);
-    
-    
+
     public InterfaceSalle() {
         initialize();
     }
@@ -36,6 +35,7 @@ public class InterfaceSalle {
         frmGestionDuRestaurant.setTitle("Gestion du restaurant");
         frmGestionDuRestaurant.setSize(671, 361);
         frmGestionDuRestaurant.setLocation(350, 100);
+        frmGestionDuRestaurant.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel salle = new JPanel();
         salle.setBackground(new Color(253, 245, 230));
