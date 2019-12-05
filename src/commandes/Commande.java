@@ -31,6 +31,8 @@ public class Commande {
             this.articles.put(article, quantite);
         }
     }
+    
+    
 
     public void retirerArticle(Article article) {
         this.articles.remove(article);

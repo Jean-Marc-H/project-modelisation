@@ -7,13 +7,15 @@ import salle.Table;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+import articles.Article;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Map;
 
 public class InterfaceCommande {
     private Commande commande;
-    private int tableNumber;
 
     public JFrame frmCommande;
 	private JTextField show_itemlist_selected_item;
@@ -23,7 +25,6 @@ public class InterfaceCommande {
 	private DefaultTableModel model;
 	private JButton btnAjouter;
 	private JButton btnRetirer;
-	private JButton btnArchiver;
 	private JLabel lblNewLabel;
 	private JLabel lblTotal;
 	private JButton btnConfirmer;
@@ -34,8 +35,7 @@ public class InterfaceCommande {
 	/**
 	 * Crée l'application.
 	 */
-	public InterfaceCommande(int _tableNumber) {
-		tableNumber = _tableNumber;
+	public InterfaceCommande() {
 		initialize();
 	}
 
@@ -109,13 +109,6 @@ public class InterfaceCommande {
 		frmCommande.getContentPane().add(total);
 		total.setColumns(10);
 		
-		
-		//Archivage
-		btnArchiver = new JButton("Archiver");
-		btnArchiver.setBounds(144, 300, 89, 23);
-		btnArchiver.setEnabled(false);
-		frmCommande.getContentPane().add(btnArchiver);
-		
 		//Confirmer la commande: Message de confirmation demandant si la commande peut être envoyée à la cuisine
 		btnConfirmer = new JButton("Confirmer");
 		btnConfirmer.setBackground(new Color(0, 255, 127));
@@ -181,6 +174,23 @@ public class InterfaceCommande {
 				  int reponse = JOptionPane.YES_NO_OPTION;
 				  reponse = JOptionPane.showConfirmDialog(null, "Êtes-vous sur de vouloir envoyer la commande?", "Attention", reponse);
 				  if(reponse == JOptionPane.YES_OPTION) {
+					  for(int i = 0 ; i< table.getRowCount(); i++){
+						  boolean valueFound = false;
+						  for(Article article : commande.getListeArticles().keySet()){
+							  if(table.getModel().getValueAt(i, 0) == article.getNom()) {
+								  valueFound =true;
+								  int difference = Integer.parseInt(table.getModel().getValueAt(i, 1).toString()) - commande.getListeArticles().get(article);
+								  if(difference != 0) {
+									  commande.ajouterArticle(article, difference);
+								  }
+							  }
+					        
+						  }
+						  if(!valueFound) {
+							  commande.ajouterArticle(Programme.menuArticles.getArticle(table.getModel().getValueAt(i, 0).toString()), 1);
+						  }
+							
+						}
 					  JOptionPane.showMessageDialog (null, "Commande envoyée", "Information", JOptionPane.INFORMATION_MESSAGE);
 					  frmCommande.setVisible(false);
 					  //Changer la couleur de la table dépendamment de laquelle a été cliquée
@@ -193,28 +203,15 @@ public class InterfaceCommande {
 		btnAnnuler.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				model.setRowCount(0);
-				btnArchiver.setEnabled(false);
 				total.setText("0.00");
 				frmCommande.dispose();
 			}
 		});
 		
-		btnArchiver.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				//A modifier plus tard pour archiver
-				Programme.gestionCommandes.archiverCommande(null);
-			}
-		});
 	}
 
-	public void setUp() {
-		if(Programme.salle.getTables().get(tableNumber).getEtat() == Table.EtatTable.SERVI) {
-			btnArchiver.setEnabled(true);
-		}
-		else {
-			btnArchiver.setEnabled(false);
-		}
-		
+	
+	public void setCommande(Commande _commande) {
+		commande = _commande;
 	}
 }

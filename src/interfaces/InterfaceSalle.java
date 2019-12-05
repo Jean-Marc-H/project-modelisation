@@ -14,14 +14,14 @@ import static salle.Table.EtatTable.VIDE;
 public class InterfaceSalle {
     
     public JFrame frmGestionDuRestaurant;
-    private InterfaceCommande commande1 = new InterfaceCommande(1);
-    private InterfaceCommande commande2 = new InterfaceCommande(2);
-    private InterfaceCommande commande3 = new InterfaceCommande(3);
-    private InterfaceCommande commande4 = new InterfaceCommande(4);
-    private InterfaceCommande commande5 = new InterfaceCommande(5);
-    private InterfaceCommande commande6 = new InterfaceCommande(6);
-    private InterfaceCommande commande7 = new InterfaceCommande(7);
-    private InterfaceCommande commande8 = new InterfaceCommande(8);
+    private InterfaceCommande commande1 = new InterfaceCommande();
+    private InterfaceCommande commande2 = new InterfaceCommande();
+    private InterfaceCommande commande3 = new InterfaceCommande();
+    private InterfaceCommande commande4 = new InterfaceCommande();
+    private InterfaceCommande commande5 = new InterfaceCommande();
+    private InterfaceCommande commande6 = new InterfaceCommande();
+    private InterfaceCommande commande7 = new InterfaceCommande();
+    private InterfaceCommande commande8 = new InterfaceCommande();
     
     
     public InterfaceSalle() {
@@ -62,8 +62,7 @@ public class InterfaceSalle {
 		salle.add(table1);
 		table1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e1) {
-				commande1.frmCommande.setVisible(true);
-				commande1.setUp();
+				setUpCommande(commande1, 0, table1);
 			}
 		});
 		
@@ -75,8 +74,7 @@ public class InterfaceSalle {
 		table2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				commande1.frmCommande.setVisible(true);
-				commande1.setUp();
+				setUpCommande(commande2, 1, table2);
 			}
 		});
 		
@@ -88,8 +86,7 @@ public class InterfaceSalle {
 		table3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				commande3.frmCommande.setVisible(true);
-				commande1.setUp();
+				setUpCommande(commande3, 2, table3);
 			}
 		});
 		
@@ -101,8 +98,7 @@ public class InterfaceSalle {
 		table4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				commande4.frmCommande.setVisible(true);
-				commande1.setUp();
+				setUpCommande(commande4, 3, table4);
 			}
 		});
 		
@@ -114,8 +110,7 @@ public class InterfaceSalle {
 		table5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				commande5.frmCommande.setVisible(true);
-				commande1.setUp();
+				setUpCommande(commande5, 4, table5);
 			}
 		});
 		
@@ -126,8 +121,7 @@ public class InterfaceSalle {
 		salle.add(table6);
 		table6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				commande6.frmCommande.setVisible(true);
-				commande1.setUp();
+				setUpCommande(commande6, 5, table6);
 			}
 		});
 		
@@ -139,8 +133,7 @@ public class InterfaceSalle {
 		table7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				commande7.frmCommande.setVisible(true);
-				commande1.setUp();
+				setUpCommande(commande7, 6, table7);
 			}
 		});
 		
@@ -151,8 +144,7 @@ public class InterfaceSalle {
 		salle.add(table8);
 		table8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				commande8.frmCommande.setVisible(true);
-				commande1.setUp();
+				setUpCommande(commande8, 7, table8);
 			}
 		});
 		
@@ -279,6 +271,27 @@ public class InterfaceSalle {
         }
 
         
+    }
+    
+    private void setUpCommande(InterfaceCommande commande, int tableNumber, JButton button) {
+    	
+    	if(Programme.salle.getTables().get(tableNumber).getEtat() == Table.EtatTable.EN_ATTENTE || Programme.salle.getTables().get(tableNumber).getEtat() == Table.EtatTable.PRET
+    			|| Programme.salle.getTables().get(tableNumber).getEtat() == Table.EtatTable.SERVI) {
+        	commande.frmCommande.setVisible(true);
+    	}
+    	
+    	if(Programme.salle.getTables().get(tableNumber).getEtat() == Table.EtatTable.VIDE) {
+    		
+    		Programme.salle.getTables().get(tableNumber).setProchainEtat();
+    		setCouleurTable(button, Programme.salle.getTables().get(tableNumber));
+    	}
+    	
+    	else if(Programme.salle.getTables().get(tableNumber).getEtat() == Table.EtatTable.PRET) {
+    		
+    		Programme.gestionCommandes.creerCommande(Programme.salle.getTables().get(tableNumber));
+    		commande.setCommande(Programme.gestionCommandes.getLastCommandeActive());
+    	}
+    	
     }
     
     public void tableAction(JButton button, Table table){

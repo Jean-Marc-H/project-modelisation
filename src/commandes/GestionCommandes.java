@@ -32,6 +32,10 @@ public class GestionCommandes {
         //CHANGER ETAT
     }
     
+    public Commande getLastCommandeActive(){
+        return commandesActives.get(commandesActives.size()-1);
+    }
+    
 
     public void archiverCommande (Paiement paiement) {
 		Commande commande = paiement.getCommande();
@@ -57,5 +61,6 @@ public class GestionCommandes {
 		}
 
 	}
+
     
 }
