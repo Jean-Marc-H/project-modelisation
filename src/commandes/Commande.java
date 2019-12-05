@@ -26,6 +26,9 @@ public class Commande {
     public void ajouterArticle(Article article, int quantite){
         if(this.articles.containsKey(article)){
             this.articles.replace(article, this.articles.get(article)+quantite);
+            if(this.articles.get(article)==0){
+                this.retirerArticle(article);
+            }
         }
         else{
             this.articles.put(article, quantite);
@@ -43,6 +46,7 @@ public class Commande {
         for(Map.Entry<Article, Integer> article: this.articles.entrySet()){
             total+=article.getKey().getPrix()*article.getValue();
         }
+        total=Math.round(total*100)/100;
         return total;
     }
 

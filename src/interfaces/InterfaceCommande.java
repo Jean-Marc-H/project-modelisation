@@ -17,6 +17,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class InterfaceCommande {
     private Commande commande;
@@ -84,7 +85,13 @@ public class InterfaceCommande {
 		frmCommande.getContentPane().add(scrollPane);
 		
 		model = new DefaultTableModel(); 
-		table = new JTable(model); 
+		table = new JTable(model){
+			private static final long serialVersionUID = 1L;
+
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			};
+		};
 		table.setBounds(21, 101, 212, 121);
 		frmCommande.getContentPane().add(table);
 		scrollPane.setViewportView(table);
@@ -155,13 +162,16 @@ public class InterfaceCommande {
 		btnAjouter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String choix = (String) itemList.getSelectedItem();
+				if(Programme.menuArticles.getArticle(choix)!=null){
+					commande.ajouterArticle(Programme.menuArticles.getArticle(choix), 1);
+				}
 				boolean valueFound = false;
 				for(int i = 0 ; i< table.getRowCount(); i++){
 					if(table.getModel().getValueAt(i, 0) == choix) {
 						valueFound = true;
 						int value = (int)table.getModel().getValueAt(i, 2) + 1;
 						table.getModel().setValueAt(value, i, 2);
-						total.setText(String.valueOf((double)Math.round((Double.parseDouble(total.getText()) + (double)table.getModel().getValueAt(i, 1))* 100) / 100));
+						total.setText(String.valueOf(commande.calculerTotal()));
 						
 					}
 				}
@@ -179,13 +189,16 @@ public class InterfaceCommande {
 			public void actionPerformed(ActionEvent e) {
 				try 
 				{
-					int index = table.getSelectedRow();
-					int value = (int)table.getModel().getValueAt(index, 2) - 1;
-					total.setText(String.valueOf((double)Math.round((Double.parseDouble(total.getText()) - (double)table.getModel().getValueAt(index, 1))* 100) / 100));
-					if(value < 1)
-						((DefaultTableModel)table.getModel()).removeRow(index);
-					else
-						table.getModel().setValueAt(value, index, 2);
+					if(Programme.menuArticles.getArticle((String)table.getModel().getValueAt(table.getSelectedRow(), 0))!=null) {
+						commande.ajouterArticle(Programme.menuArticles.getArticle((String)table.getModel().getValueAt(table.getSelectedRow(), 0)), -1);
+						int index = table.getSelectedRow();
+						int value = (int) table.getModel().getValueAt(index, 2) - 1;
+						total.setText(String.valueOf(commande.calculerTotal()));
+						if (value < 1)
+							((DefaultTableModel) table.getModel()).removeRow(index);
+						else
+							table.getModel().setValueAt(value, index, 2);
+					}
 				}
 				//Eviter le probleme ou la ligne n'est pas selectionner ou il n'y a pas de ligne
 				catch(Exception a) {}
@@ -201,36 +214,6 @@ public class InterfaceCommande {
 				reponse = JOptionPane.showConfirmDialog(null, "Etes-vous sur de vouloir envoyer la commande?",
 						"Attention", reponse);
 				if (reponse == JOptionPane.YES_OPTION) {
-					ArrayList<Article> listeArticleTrouver = new ArrayList<Article>();
-					for (int i = 0; i < table.getRowCount(); i++) {
-						boolean valueFound = false;
-
-						for (Article article : commande.getListeArticles().keySet()) {
-							if (table.getModel().getValueAt(i, 0) == article.getNom()) {
-								listeArticleTrouver.add(article);
-								valueFound = true;
-								int difference = Integer.parseInt(table.getModel().getValueAt(i, 1).toString())
-										- commande.getListeArticles().get(article);
-								if (difference != 0) {
-									commande.ajouterArticle(article, difference);
-								}
-							}
-
-						}
-						if (!valueFound) {
-							commande.ajouterArticle(
-									Programme.menuArticles.getArticle(table.getModel().getValueAt(i, 0).toString()), 1);
-						}
-
-					}
-					// Retire les article qui ne sont plus la
-					HashMap<Article, Integer> temp  = new HashMap<Article, Integer>(commande.getListeArticles());
-					for (Article article : temp.keySet()) {
-						if(!listeArticleTrouver.contains(article)) {
-							commande.getListeArticles().remove(article);
-						}
-					}
-
 					JOptionPane.showMessageDialog(null, "Commande envoyee", "Information",
 							JOptionPane.INFORMATION_MESSAGE);
 					etat = InterfaceCommande.closeResult.OK;
@@ -251,10 +234,8 @@ public class InterfaceCommande {
 		
 		btnArchiver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(commande.calculerTotal());
-                Programme.salle.getTables().get(tableNumber).setProchainEtat();
+				etat = InterfaceCommande.closeResult.ARCHIVER;
                 Paiement paiement = new Paiement(commande);
-                System.out.println(paiement.getCommande().getListeArticles().size());
                 if(modePaiement.getSelectedItem().equals("Carte")){
 					paiement.payer(Paiement.MethodePaiement.CARTE);
 				}
@@ -263,7 +244,6 @@ public class InterfaceCommande {
 				}
 				model.setRowCount(0);
 				total.setText("0.00");
-				etat = InterfaceCommande.closeResult.ARCHIVER;
 				frmCommande.dispose();
 			}
 		});

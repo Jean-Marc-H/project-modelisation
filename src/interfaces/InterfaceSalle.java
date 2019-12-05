@@ -365,7 +365,10 @@ public class InterfaceSalle {
         }
     	else if((Programme.salle.getTables().get(tableNumber).getEtat() == Table.EtatTable.PRET || Programme.salle.getTables().get(tableNumber).getEtat()==Table.EtatTable.SERVI) && commande.etat == InterfaceCommande.closeResult.OK) {
     		commande.etat = InterfaceCommande.closeResult.FERMER;
-    		Programme.salle.getTables().get(tableNumber).setProchainEtat();
+    		if(Programme.salle.getTables().get(tableNumber).getEtat()==Table.EtatTable.PRET)
+    		    Programme.salle.getTables().get(tableNumber).setProchainEtat();
+    		else
+    		    Programme.salle.getTables().get(tableNumber).setEnAttente();
     		setCouleurTable(button, Programme.salle.getTables().get(tableNumber));
     		Thread thread = new Thread(){
     		    public void run(){

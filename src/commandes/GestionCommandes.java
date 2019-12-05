@@ -62,7 +62,6 @@ public class GestionCommandes {
 			}
 			sb.append(",," + commande.calculerTotal() + "$,\n");
 
-			System.out.println(sb);
 			writer.write(sb.toString());
 
 		} catch (Exception e) {

@@ -34,6 +34,10 @@ public class Table {
             this.etat=EtatTable.VIDE;
     }
 
+    public void setEnAttente(){
+        this.etat=EtatTable.EN_ATTENTE;
+    }
+
     public void setCommande(Commande commande){
         this.commande=commande;
     }
