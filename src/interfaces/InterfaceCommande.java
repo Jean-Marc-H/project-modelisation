@@ -68,9 +68,9 @@ public class InterfaceCommande {
 		}
 		
 		
-		//Menu deroulant permettant de choisir les items desir�es
-		lblNewLabel = new JLabel("S\u00E9lectionnez le(s) choix du client:");
-		lblNewLabel.setBounds(10, 11, 181, 14);
+		//Menu deroulant permettant de choisir les items desirees
+		lblNewLabel = new JLabel("Selectionnez le(s) choix du client:");
+		lblNewLabel.setBounds(10, 11, 190, 14);
 		frmCommande.getContentPane().add(lblNewLabel);
 		
 		itemList = new JComboBox<String>(item);
@@ -160,7 +160,7 @@ public class InterfaceCommande {
 						valueFound = true;
 						int value = (int)table.getModel().getValueAt(i, 2) + 1;
 						table.getModel().setValueAt(value, i, 2);
-						total.setText(String.valueOf(Double.parseDouble(total.getText()) + (double)table.getModel().getValueAt(i, 1)));
+						total.setText(String.valueOf((double)Math.round((Double.parseDouble(total.getText()) + (double)table.getModel().getValueAt(i, 1))* 100) / 100));
 						
 					}
 				}
@@ -180,7 +180,7 @@ public class InterfaceCommande {
 				{
 					int index = table.getSelectedRow();
 					int value = (int)table.getModel().getValueAt(index, 2) - 1;
-					total.setText(String.valueOf(Double.parseDouble(total.getText()) - (double)table.getModel().getValueAt(index, 1)));
+					total.setText(String.valueOf((double)Math.round((Double.parseDouble(total.getText()) - (double)table.getModel().getValueAt(index, 1))* 100) / 100));
 					if(value < 1)
 						((DefaultTableModel)table.getModel()).removeRow(index);
 					else
