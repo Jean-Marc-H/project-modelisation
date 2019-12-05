@@ -359,6 +359,7 @@ public class InterfaceSalle {
     private void formClosingEvent(InterfaceCommande commande, int tableNumber, JButton button) {
 
         if(commande.etat==InterfaceCommande.closeResult.ANNULER){
+            commande.etat = InterfaceCommande.closeResult.FERMER;
             Programme.salle.getTables().get(tableNumber).annulerCommande();
             setCouleurTable(button, Programme.salle.getTables().get(tableNumber));
         }
@@ -384,11 +385,9 @@ public class InterfaceSalle {
     		thread.start();
     	}
     	else if(Programme.salle.getTables().get(tableNumber).getEtat() == Table.EtatTable.SERVI && commande.etat == InterfaceCommande.closeResult.ARCHIVER) {
-    		Programme.salle.getTables().get(tableNumber).setProchainEtat();
-    		setCouleurTable(button, Programme.salle.getTables().get(tableNumber));
-    		Paiement paiement = new Paiement(Programme.gestionCommandes.getTableCommandeActive(Programme.salle.getTables().get(tableNumber)));
-    		paiement.getCommande().
-    		paiement.payer(Paiement.MethodePaiement.CARTE);
+            commande.etat = InterfaceCommande.closeResult.FERMER;
+            Programme.salle.getTables().get(tableNumber).setProchainEtat();
+    	    setCouleurTable(button, Programme.salle.getTables().get(tableNumber));
     	}
     }
     

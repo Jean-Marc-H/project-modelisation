@@ -2,6 +2,7 @@ package interfaces;
 
 import commandes.Commande;
 import executable.Programme;
+import paiement.Paiement;
 import salle.Table;
 import salle.Table.EtatTable;
 
@@ -250,7 +251,16 @@ public class InterfaceCommande {
 		
 		btnArchiver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				System.out.println(commande.calculerTotal());
+                Programme.salle.getTables().get(tableNumber).setProchainEtat();
+                Paiement paiement = new Paiement(commande);
+                System.out.println(paiement.getCommande().getListeArticles().size());
+                if(modePaiement.getSelectedItem().equals("Carte")){
+					paiement.payer(Paiement.MethodePaiement.CARTE);
+				}
+                else if(modePaiement.getSelectedItem().equals("Comptant")){
+                	paiement.payer(Paiement.MethodePaiement.COMPTANT);
+				}
 				model.setRowCount(0);
 				total.setText("0.00");
 				etat = InterfaceCommande.closeResult.ARCHIVER;

@@ -17,7 +17,6 @@ public class Table {
     public void annulerCommande(){
         Programme.gestionCommandes.annulerCommande(this.commande);
         this.etat=EtatTable.VIDE;
-        this.commande=null;
     }
 
     public int getNumero(){
