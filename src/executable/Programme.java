@@ -14,19 +14,17 @@ public class Programme {
     public static Salle salle=new Salle();
 
     public static void main(String[] args){
-        menuArticles.getMenuFile();
-        for(int i=0;i<8;i++){
-            salle.ajouterTable(i+1);
-        }
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    InterfaceSalle window = new InterfaceSalle();
-                    window.frmGestionDuRestaurant.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+		menuArticles.getMenuFile();
+		for (int i = 0; i < 8; i++) {
+			salle.ajouterTable(i + 1);
+		}
+		try {
+			InterfaceSalle window = new InterfaceSalle();
+			window.frmGestionDuRestaurant.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
 }

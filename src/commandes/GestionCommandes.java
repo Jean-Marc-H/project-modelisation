@@ -33,7 +33,7 @@ public class GestionCommandes {
     }
     
 
-    public static void archiverCommande (Paiement paiement) {
+    public void archiverCommande (Paiement paiement) {
 		Commande commande = paiement.getCommande();
 		String file = System.getProperty("user.dir") + "\\Fichier\\Archive\\Commande_"
 				+ new SimpleDateFormat("yyyy-MM-dd__HH-mm-ss").format(Calendar.getInstance().getTime()) + ".csv";

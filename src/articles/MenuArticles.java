@@ -52,6 +52,7 @@ public class MenuArticles {
 				Double prix = Double.parseDouble(content[1]);
 				this.catalogue.add(new Article(nom, prix));
 			}
+			br.close();
 			
 		} catch (Exception e) {
 			// File not found

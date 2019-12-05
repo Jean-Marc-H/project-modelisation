@@ -2,6 +2,7 @@ package interfaces;
 
 import commandes.Commande;
 import executable.Programme;
+import salle.Table;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -12,6 +13,7 @@ import java.awt.event.ActionListener;
 
 public class InterfaceCommande {
     private Commande commande;
+    private int tableNumber;
 
     public JFrame frmCommande;
 	private JTextField show_itemlist_selected_item;
@@ -19,27 +21,21 @@ public class InterfaceCommande {
 	private JTable table;
 	private JScrollPane scrollPane;
 	private DefaultTableModel model;
+	private JButton btnAjouter;
+	private JButton btnRetirer;
+	private JButton btnArchiver;
+	private JLabel lblNewLabel;
+	private JLabel lblTotal;
+	private JButton btnConfirmer;
+	private JButton btnAnnuler;
+	private JComboBox itemList;
 
-	/**
-	 * Lance l'application.
-	 */
-	public void PopupScreen() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					InterfaceCommande window = new InterfaceCommande();
-					window.frmCommande.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Crée l'application.
 	 */
-	public InterfaceCommande() {
+	public InterfaceCommande(int _tableNumber) {
+		tableNumber = _tableNumber;
 		initialize();
 	}
 
@@ -48,6 +44,7 @@ public class InterfaceCommande {
 	 */
 	private void initialize() {
 		frmCommande = new JFrame();
+		frmCommande.setResizable(false);
 		frmCommande.setTitle("Commande");
 		frmCommande.setSize(270, 418);
 		frmCommande.setLocation(350, 100);
@@ -63,11 +60,11 @@ public class InterfaceCommande {
 		
 		
 		//Menu déroulant permettant de choisir les items désirés
-		JLabel lblNewLabel = new JLabel("S\u00E9lectionnez le(s) choix du client:");
+		lblNewLabel = new JLabel("S\u00E9lectionnez le(s) choix du client:");
 		lblNewLabel.setBounds(10, 11, 181, 14);
 		frmCommande.getContentPane().add(lblNewLabel);
 		
-		JComboBox itemList = new JComboBox(item);
+		itemList = new JComboBox<String>(item);
 		itemList.setBounds(36, 34, 181, 22);
 		itemList.setMaximumRowCount(6);
 		frmCommande.getContentPane().add(itemList);
@@ -88,20 +85,20 @@ public class InterfaceCommande {
 		model.addColumn("Quantité");
 		
 		//Ajouter un item: Ajoute l'item choisi dans la liste d'items
-		JButton btnAjouter = new JButton("Ajouter");
+		btnAjouter = new JButton("Ajouter");
 		btnAjouter.setBounds(21, 67, 89, 23);
 		frmCommande.getContentPane().add(btnAjouter);
 		
 		
 		
 		//Retirer un item: Enlève l'item choisi de la commande
-		JButton btnRetirer = new JButton("Retirer");
+		btnRetirer = new JButton("Retirer");
 		btnRetirer.setBounds(144, 67, 89, 23);
 		frmCommande.getContentPane().add(btnRetirer);
 		
 		
 		//Total: Affiche le prix total de la commande
-		JLabel lblTotal = new JLabel("Total:");
+		lblTotal = new JLabel("Total:");
 		lblTotal.setBounds(201, 245, 32, 14);
 		frmCommande.getContentPane().add(lblTotal);
 		
@@ -112,15 +109,22 @@ public class InterfaceCommande {
 		frmCommande.getContentPane().add(total);
 		total.setColumns(10);
 		
+		
+		//Archivage
+		btnArchiver = new JButton("Archiver");
+		btnArchiver.setBounds(144, 300, 89, 23);
+		btnArchiver.setEnabled(false);
+		frmCommande.getContentPane().add(btnArchiver);
+		
 		//Confirmer la commande: Message de confirmation demandant si la commande peut être envoyée à la cuisine
-		JButton btnConfirmer = new JButton("Confirmer");
+		btnConfirmer = new JButton("Confirmer");
 		btnConfirmer.setBackground(new Color(0, 255, 127));
 		btnConfirmer.setBounds(21, 328, 96, 23);
 		frmCommande.getContentPane().add(btnConfirmer);
 		
 		
 		//Annuler la commande: Enlève tous les items de la liste
-		JButton btnAnnuler = new JButton("Annuler");
+		btnAnnuler = new JButton("Annuler");
 		btnAnnuler.setBackground(new Color(255, 99, 71));
 		btnAnnuler.setBounds(144, 328, 89, 23);
 		frmCommande.getContentPane().add(btnAnnuler);
@@ -189,9 +193,28 @@ public class InterfaceCommande {
 		btnAnnuler.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				model.setRowCount(0);
+				btnArchiver.setEnabled(false);
 				total.setText("0.00");
 				frmCommande.dispose();
 			}
 		});
+		
+		btnArchiver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				//A modifier plus tard pour archiver
+				Programme.gestionCommandes.archiverCommande(null);
+			}
+		});
+	}
+
+	public void setUp() {
+		if(Programme.salle.getTables().get(tableNumber).getEtat() == Table.EtatTable.SERVI) {
+			btnArchiver.setEnabled(true);
+		}
+		else {
+			btnArchiver.setEnabled(false);
+		}
+		
 	}
 }

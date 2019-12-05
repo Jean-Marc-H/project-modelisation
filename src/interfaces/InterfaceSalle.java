@@ -14,14 +14,14 @@ import static salle.Table.EtatTable.VIDE;
 public class InterfaceSalle {
     
     public JFrame frmGestionDuRestaurant;
-    private InterfaceCommande commande1 = new InterfaceCommande();
-    private InterfaceCommande commande2 = new InterfaceCommande();
-    private InterfaceCommande commande3 = new InterfaceCommande();
-    private InterfaceCommande commande4 = new InterfaceCommande();
-    private InterfaceCommande commande5 = new InterfaceCommande();
-    private InterfaceCommande commande6 = new InterfaceCommande();
-    private InterfaceCommande commande7 = new InterfaceCommande();
-    private InterfaceCommande commande8 = new InterfaceCommande();
+    private InterfaceCommande commande1 = new InterfaceCommande(1);
+    private InterfaceCommande commande2 = new InterfaceCommande(2);
+    private InterfaceCommande commande3 = new InterfaceCommande(3);
+    private InterfaceCommande commande4 = new InterfaceCommande(4);
+    private InterfaceCommande commande5 = new InterfaceCommande(5);
+    private InterfaceCommande commande6 = new InterfaceCommande(6);
+    private InterfaceCommande commande7 = new InterfaceCommande(7);
+    private InterfaceCommande commande8 = new InterfaceCommande(8);
     
     
     public InterfaceSalle() {
@@ -30,6 +30,7 @@ public class InterfaceSalle {
 
     private void initialize() {
         frmGestionDuRestaurant = new JFrame();
+        frmGestionDuRestaurant.setResizable(false);
         frmGestionDuRestaurant.setTitle("Gestion du restaurant");
         frmGestionDuRestaurant.setSize(671, 361);
         frmGestionDuRestaurant.setLocation(350, 100);
@@ -62,6 +63,7 @@ public class InterfaceSalle {
 		table1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e1) {
 				commande1.frmCommande.setVisible(true);
+				commande1.setUp();
 			}
 		});
 		
@@ -74,6 +76,7 @@ public class InterfaceSalle {
 			public void actionPerformed(ActionEvent e) {
 				
 				commande1.frmCommande.setVisible(true);
+				commande1.setUp();
 			}
 		});
 		
@@ -86,6 +89,7 @@ public class InterfaceSalle {
 			public void actionPerformed(ActionEvent e) {
 				
 				commande3.frmCommande.setVisible(true);
+				commande1.setUp();
 			}
 		});
 		
@@ -98,6 +102,7 @@ public class InterfaceSalle {
 			public void actionPerformed(ActionEvent e) {
 				
 				commande4.frmCommande.setVisible(true);
+				commande1.setUp();
 			}
 		});
 		
@@ -110,6 +115,7 @@ public class InterfaceSalle {
 			public void actionPerformed(ActionEvent e) {
 				
 				commande5.frmCommande.setVisible(true);
+				commande1.setUp();
 			}
 		});
 		
@@ -121,6 +127,7 @@ public class InterfaceSalle {
 		table6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				commande6.frmCommande.setVisible(true);
+				commande1.setUp();
 			}
 		});
 		
@@ -133,6 +140,7 @@ public class InterfaceSalle {
 			public void actionPerformed(ActionEvent e) {
 
 				commande7.frmCommande.setVisible(true);
+				commande1.setUp();
 			}
 		});
 		
@@ -144,6 +152,7 @@ public class InterfaceSalle {
 		table8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				commande8.frmCommande.setVisible(true);
+				commande1.setUp();
 			}
 		});
 		
