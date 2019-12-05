@@ -40,7 +40,7 @@ public class InterfaceCommande {
 
 
 	/**
-	 * Crée l'application.
+	 * Crï¿½e l'application.
 	 */
 	public InterfaceCommande(int number) {
 		tableNumber = number;
@@ -48,7 +48,7 @@ public class InterfaceCommande {
 	}
 
 	/**
-	 * Initialise les contenus de la fenêtre.
+	 * Initialise les contenus de la fenï¿½tre.
 	 */
 	private void initialize() {
 		frmCommande = new JFrame();
@@ -67,7 +67,7 @@ public class InterfaceCommande {
 		}
 		
 		
-		//Menu déroulant permettant de choisir les items désirés
+		//Menu dï¿½roulant permettant de choisir les items dï¿½sirï¿½s
 		lblNewLabel = new JLabel("S\u00E9lectionnez le(s) choix du client:");
 		lblNewLabel.setBounds(10, 11, 181, 14);
 		frmCommande.getContentPane().add(lblNewLabel);
@@ -90,7 +90,7 @@ public class InterfaceCommande {
 		// Create a couple of columns 
 		model.addColumn("Nom"); 
 		model.addColumn("Prix"); 
-		model.addColumn("Quantité");
+		model.addColumn("Quantitï¿½");
 		
 		//Ajouter un item: Ajoute l'item choisi dans la liste d'items
 		btnAjouter = new JButton("Ajouter");
@@ -99,7 +99,7 @@ public class InterfaceCommande {
 		
 		
 		
-		//Retirer un item: Enlève l'item choisi de la commande
+		//Retirer un item: Enlï¿½ve l'item choisi de la commande
 		btnRetirer = new JButton("Retirer");
 		btnRetirer.setBounds(144, 67, 89, 23);
 		frmCommande.getContentPane().add(btnRetirer);
@@ -117,14 +117,14 @@ public class InterfaceCommande {
 		frmCommande.getContentPane().add(total);
 		total.setColumns(10);
 		
-		//Confirmer la commande: Message de confirmation demandant si la commande peut être envoyée à la cuisine
+		//Confirmer la commande: Message de confirmation demandant si la commande peut ï¿½tre envoyï¿½e ï¿½ la cuisine
 		btnConfirmer = new JButton("Confirmer");
 		btnConfirmer.setBackground(new Color(0, 255, 127));
 		btnConfirmer.setBounds(21, 328, 96, 23);
 		frmCommande.getContentPane().add(btnConfirmer);
 		
 		
-		//Annuler la commande: Enlève tous les items de la liste
+		//Annuler la commande: Enlï¿½ve tous les items de la liste
 		btnAnnuler = new JButton("Annuler");
 		btnAnnuler.setBackground(new Color(255, 99, 71));
 		btnAnnuler.setBounds(144, 300, 89, 23);
@@ -189,7 +189,7 @@ public class InterfaceCommande {
 		btnConfirmer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {		
 				int reponse = JOptionPane.YES_NO_OPTION;
-				reponse = JOptionPane.showConfirmDialog(null, "Êtes-vous sur de vouloir envoyer la commande?",
+				reponse = JOptionPane.showConfirmDialog(null, "ï¿½tes-vous sur de vouloir envoyer la commande?",
 						"Attention", reponse);
 				if (reponse == JOptionPane.YES_OPTION) {
 					ArrayList<Article> listeArticleTrouver = new ArrayList<Article>();
@@ -222,12 +222,12 @@ public class InterfaceCommande {
 						}
 					}
 
-					JOptionPane.showMessageDialog(null, "Commande envoyée", "Information",
+					JOptionPane.showMessageDialog(null, "Commande envoyï¿½e", "Information",
 							JOptionPane.INFORMATION_MESSAGE);
 					etat = InterfaceCommande.closeResult.OK;
 					frmCommande.dispose();
-					// Changer la couleur de la table dépendamment de laquelle a été cliquée
-					// Déterminer ce qui doit être fait
+					// Changer la couleur de la table dï¿½pendamment de laquelle a ï¿½tï¿½ cliquï¿½e
+					// Dï¿½terminer ce qui doit ï¿½tre fait
 				}
 			}
 		});
@@ -266,9 +266,15 @@ public class InterfaceCommande {
 	public void setUp() {
 		if(Programme.salle.getTables().get(tableNumber).getEtat() == Table.EtatTable.SERVI) {
 			btnArchiver.setEnabled(true);
+			btnAnnuler.setEnabled(false);
+		}
+		else if(Programme.salle.getTables().get(tableNumber).getEtat()== EtatTable.EN_ATTENTE){
+			btnArchiver.setEnabled(false);
+			btnAnnuler.setEnabled(false);
 		}
 		else {
 			btnArchiver.setEnabled(false);
+			btnAnnuler.setEnabled(true);
 		}
 	}
 	

@@ -1,6 +1,7 @@
 package salle;
 
 import commandes.Commande;
+import executable.Programme;
 
 public class Table {
     private int numero;
@@ -9,6 +10,12 @@ public class Table {
 
     public Table(int numero){
         this.numero=numero;
+        this.etat=EtatTable.VIDE;
+        this.commande=null;
+    }
+
+    public void annulerCommande(){
+        Programme.gestionCommandes.annulerCommande(this.commande);
         this.etat=EtatTable.VIDE;
         this.commande=null;
     }

@@ -358,7 +358,11 @@ public class InterfaceSalle {
     }
     private void formClosingEvent(InterfaceCommande commande, int tableNumber, JButton button) {
 
-    	if(Programme.salle.getTables().get(tableNumber).getEtat() == Table.EtatTable.PRET && commande.etat == InterfaceCommande.closeResult.OK) {
+        if(commande.etat==InterfaceCommande.closeResult.ANNULER){
+            Programme.salle.getTables().get(tableNumber).annulerCommande();
+            setCouleurTable(button, Programme.salle.getTables().get(tableNumber));
+        }
+    	else if((Programme.salle.getTables().get(tableNumber).getEtat() == Table.EtatTable.PRET || Programme.salle.getTables().get(tableNumber).getEtat()==Table.EtatTable.SERVI) && commande.etat == InterfaceCommande.closeResult.OK) {
     		commande.etat = InterfaceCommande.closeResult.FERMER;
     		Programme.salle.getTables().get(tableNumber).setProchainEtat();
     		setCouleurTable(button, Programme.salle.getTables().get(tableNumber));
@@ -371,8 +375,10 @@ public class InterfaceSalle {
     		    	try {
 						Thread.sleep(result * 1000);
 					} catch (InterruptedException e) {}
-    		    	Programme.salle.getTables().get(tableNumber).setProchainEtat();
-    	    		setCouleurTable(button, Programme.salle.getTables().get(tableNumber));
+    		    	if(Programme.salle.getTables().get(tableNumber).getEtat()== Table.EtatTable.EN_ATTENTE) {
+                        Programme.salle.getTables().get(tableNumber).setProchainEtat();
+                        setCouleurTable(button, Programme.salle.getTables().get(tableNumber));
+                    }
     		      }
     		};
     		thread.start();
