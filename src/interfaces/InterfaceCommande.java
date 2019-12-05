@@ -49,7 +49,7 @@ public class InterfaceCommande {
 	}
 
 	/**
-	 * Initialise les contenus de la fen�tre.
+	 * Initialise les contenus de la fenetre.
 	 */
 	private void initialize() {
 		frmCommande = new JFrame();
@@ -68,7 +68,7 @@ public class InterfaceCommande {
 		}
 		
 		
-		//Menu d�roulant permettant de choisir les items d�sir�s
+		//Menu deroulant permettant de choisir les items desir�es
 		lblNewLabel = new JLabel("S\u00E9lectionnez le(s) choix du client:");
 		lblNewLabel.setBounds(10, 11, 181, 14);
 		frmCommande.getContentPane().add(lblNewLabel);
@@ -91,7 +91,7 @@ public class InterfaceCommande {
 		// Create a couple of columns 
 		model.addColumn("Nom"); 
 		model.addColumn("Prix"); 
-		model.addColumn("Quantit�");
+		model.addColumn("Quantite");
 		
 		//Ajouter un item: Ajoute l'item choisi dans la liste d'items
 		btnAjouter = new JButton("Ajouter");
@@ -100,7 +100,7 @@ public class InterfaceCommande {
 		
 		
 		
-		//Retirer un item: Enl�ve l'item choisi de la commande
+		//Retirer un item: Enleve l'item choisi de la commande
 		btnRetirer = new JButton("Retirer");
 		btnRetirer.setBounds(144, 67, 89, 23);
 		frmCommande.getContentPane().add(btnRetirer);
@@ -125,14 +125,14 @@ public class InterfaceCommande {
 		modePaiement.setMaximumRowCount(6);
 		frmCommande.getContentPane().add(modePaiement);
 		
-		//Confirmer la commande: Message de confirmation demandant si la commande peut �tre envoy�e � la cuisine
+		//Confirmer la commande: Message de confirmation demandant si la commande peut etre envoyee a la cuisine
 		btnConfirmer = new JButton("Confirmer");
 		btnConfirmer.setBackground(new Color(0, 255, 127));
 		btnConfirmer.setBounds(21, 328, 96, 23);
 		frmCommande.getContentPane().add(btnConfirmer);
 		
 		
-		//Annuler la commande: Enl�ve tous les items de la liste
+		//Annuler la commande: Enleve tous les items de la liste
 		btnAnnuler = new JButton("Annuler");
 		btnAnnuler.setBackground(new Color(255, 99, 71));
 		btnAnnuler.setBounds(144, 300, 89, 23);
@@ -197,7 +197,7 @@ public class InterfaceCommande {
 		btnConfirmer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {		
 				int reponse = JOptionPane.YES_NO_OPTION;
-				reponse = JOptionPane.showConfirmDialog(null, "�tes-vous sur de vouloir envoyer la commande?",
+				reponse = JOptionPane.showConfirmDialog(null, "Etes-vous sur de vouloir envoyer la commande?",
 						"Attention", reponse);
 				if (reponse == JOptionPane.YES_OPTION) {
 					ArrayList<Article> listeArticleTrouver = new ArrayList<Article>();
@@ -230,12 +230,10 @@ public class InterfaceCommande {
 						}
 					}
 
-					JOptionPane.showMessageDialog(null, "Commande envoy�e", "Information",
+					JOptionPane.showMessageDialog(null, "Commande envoyee", "Information",
 							JOptionPane.INFORMATION_MESSAGE);
 					etat = InterfaceCommande.closeResult.OK;
 					frmCommande.dispose();
-					// Changer la couleur de la table d�pendamment de laquelle a �t� cliqu�e
-					// D�terminer ce qui doit �tre fait
 				}
 			}
 		});
