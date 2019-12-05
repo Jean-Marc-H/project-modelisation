@@ -36,7 +36,8 @@ public class InterfaceCommande {
 	private JLabel lblTotal;
 	private JButton btnConfirmer;
 	private JButton btnAnnuler;
-	private JComboBox itemList;
+	private JComboBox<String> itemList;
+	private JComboBox<String> modePaiement;
 
 
 	/**
@@ -116,6 +117,13 @@ public class InterfaceCommande {
 		total.setText("0.00");
 		frmCommande.getContentPane().add(total);
 		total.setColumns(10);
+		
+		
+		//Mode de paiement
+		modePaiement = new JComboBox<String>(new String[] {"Comptant", "Carte"});
+		modePaiement.setBounds(21, 263, 96, 23);
+		modePaiement.setMaximumRowCount(6);
+		frmCommande.getContentPane().add(modePaiement);
 		
 		//Confirmer la commande: Message de confirmation demandant si la commande peut �tre envoy�e � la cuisine
 		btnConfirmer = new JButton("Confirmer");
