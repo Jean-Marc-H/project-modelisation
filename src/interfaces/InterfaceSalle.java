@@ -12,18 +12,18 @@ import java.util.ArrayList;
 import static salle.Table.EtatTable.VIDE;
 
 public class InterfaceSalle {
-    /*
-    pour la couleur de la table:
-    -utiliser Programme.salle.getTables() pour obtenir les tables
-    -Pour chaque table dans l'ArrayList, regarder pour si la table est libre avec .estLibre()
-    Présentement, seulement rouge et vert sont accessibles, parce qu'on n'a pas les interfaces pour les autres couleurs.
-
-    Pour creer une commande:
-    -utiliser Programme.gestionCommandes.creerCommande(Table) avec l'objet de la table qui est pris avec la nouvelle commande
-    -rafraichir l'interface, parce que la table n'est plus disponible
-     */
+    
     public JFrame frmGestionDuRestaurant;
-
+    private InterfaceCommande commande1 = new InterfaceCommande();
+    private InterfaceCommande commande2 = new InterfaceCommande();
+    private InterfaceCommande commande3 = new InterfaceCommande();
+    private InterfaceCommande commande4 = new InterfaceCommande();
+    private InterfaceCommande commande5 = new InterfaceCommande();
+    private InterfaceCommande commande6 = new InterfaceCommande();
+    private InterfaceCommande commande7 = new InterfaceCommande();
+    private InterfaceCommande commande8 = new InterfaceCommande();
+    
+    
     public InterfaceSalle() {
         initialize();
     }
@@ -38,7 +38,7 @@ public class InterfaceSalle {
         salle.setBackground(new Color(253, 245, 230));
         frmGestionDuRestaurant.getContentPane().add(salle, BorderLayout.CENTER);
         salle.setLayout(null);
-
+/*
         ArrayList<JButton> boutons=new ArrayList<JButton>();
         for(int i=0;i<Programme.salle.getTables().size();i++) {
             Table table = Programme.salle.getTables().get(i);
@@ -53,6 +53,100 @@ public class InterfaceSalle {
                 }
             });
         }
+        */
+        JButton table1 = new JButton("1");
+		table1.setBounds(86, 91, 47, 42);
+		Table table = Programme.salle.getTables().get(0);
+		setCouleurTable(table1, table);
+		salle.add(table1);
+		table1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e1) {
+				commande1.frmCommande.setVisible(true);
+			}
+		});
+		
+		JButton table2 = new JButton("2");
+		table2.setBounds(180, 91, 47, 42);
+		table = Programme.salle.getTables().get(1);
+		setCouleurTable(table2, table);
+		salle.add(table2);
+		table2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				commande1.frmCommande.setVisible(true);
+			}
+		});
+		
+		JButton table3 = new JButton("3");
+		table3.setBounds(277, 91, 47, 42);
+		table = Programme.salle.getTables().get(2);
+		setCouleurTable(table3, table);
+		salle.add(table3);
+		table3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				commande3.frmCommande.setVisible(true);
+			}
+		});
+		
+		JButton table4 = new JButton("4");
+		table4.setBounds(376, 91, 47, 42);
+		table = Programme.salle.getTables().get(3);
+		setCouleurTable(table4, table);
+		salle.add(table4);
+		table4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				commande4.frmCommande.setVisible(true);
+			}
+		});
+		
+		JButton table5 = new JButton("5");
+		table5.setBounds(86, 186, 47, 42);
+		table = Programme.salle.getTables().get(4);
+		setCouleurTable(table5, table);
+		salle.add(table5);
+		table5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				commande5.frmCommande.setVisible(true);
+			}
+		});
+		
+		JButton table6 = new JButton("6");
+		table6.setBounds(180, 186, 47, 42);
+		table = Programme.salle.getTables().get(5);
+		setCouleurTable(table6, table);
+		salle.add(table6);
+		table6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				commande6.frmCommande.setVisible(true);
+			}
+		});
+		
+		JButton table7 = new JButton("7");
+		table7.setBounds(277, 186, 47, 42);
+		table = Programme.salle.getTables().get(6);
+		setCouleurTable(table7, table);
+		salle.add(table7);
+		table7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				commande7.frmCommande.setVisible(true);
+			}
+		});
+		
+		JButton table8 = new JButton("8");
+		table8.setBounds(376, 186, 47, 42);
+		table = Programme.salle.getTables().get(7);
+		setCouleurTable(table8, table);
+		salle.add(table8);
+		table8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				commande8.frmCommande.setVisible(true);
+			}
+		});
+		
 
         JPanel legende = new JPanel();
         legende.setBackground(new Color(204, 255, 255));
@@ -175,8 +269,10 @@ public class InterfaceSalle {
             button.setBackground(new Color(0, 0, 0));
         }
 
-        public void tableAction(JButton button, Table table){
+        
+    }
+    
+    public void tableAction(JButton button, Table table){
 
-        }
     }
 }
