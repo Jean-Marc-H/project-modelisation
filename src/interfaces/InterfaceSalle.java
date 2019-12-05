@@ -8,20 +8,21 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Random;
 
 import static salle.Table.EtatTable.VIDE;
 
 public class InterfaceSalle {
     
     public JFrame frmGestionDuRestaurant;
-    private InterfaceCommande commande1 = new InterfaceCommande();
-    private InterfaceCommande commande2 = new InterfaceCommande();
-    private InterfaceCommande commande3 = new InterfaceCommande();
-    private InterfaceCommande commande4 = new InterfaceCommande();
-    private InterfaceCommande commande5 = new InterfaceCommande();
-    private InterfaceCommande commande6 = new InterfaceCommande();
-    private InterfaceCommande commande7 = new InterfaceCommande();
-    private InterfaceCommande commande8 = new InterfaceCommande();
+    private InterfaceCommande interfaceCommande1 = new InterfaceCommande(0);
+    private InterfaceCommande interfaceCommande2 = new InterfaceCommande(1);
+    private InterfaceCommande interfaceCommande3 = new InterfaceCommande(2);
+    private InterfaceCommande interfaceCommande4 = new InterfaceCommande(3);
+    private InterfaceCommande interfaceCommande5 = new InterfaceCommande(4);
+    private InterfaceCommande interfaceCommande6 = new InterfaceCommande(5);
+    private InterfaceCommande interfaceCommande7 = new InterfaceCommande(6);
+    private InterfaceCommande interfaceCommande8 = new InterfaceCommande(7);
     
     
     public InterfaceSalle() {
@@ -62,7 +63,7 @@ public class InterfaceSalle {
 		salle.add(table1);
 		table1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e1) {
-				setUpCommande(commande1, 0, table1);
+				setUpCommande(interfaceCommande1, 0, table1);
 			}
 		});
 		
@@ -74,7 +75,7 @@ public class InterfaceSalle {
 		table2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				setUpCommande(commande2, 1, table2);
+				setUpCommande(interfaceCommande2, 1, table2);
 			}
 		});
 		
@@ -86,7 +87,7 @@ public class InterfaceSalle {
 		table3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				setUpCommande(commande3, 2, table3);
+				setUpCommande(interfaceCommande3, 2, table3);
 			}
 		});
 		
@@ -98,7 +99,7 @@ public class InterfaceSalle {
 		table4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				setUpCommande(commande4, 3, table4);
+				setUpCommande(interfaceCommande4, 3, table4);
 			}
 		});
 		
@@ -110,7 +111,7 @@ public class InterfaceSalle {
 		table5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				setUpCommande(commande5, 4, table5);
+				setUpCommande(interfaceCommande5, 4, table5);
 			}
 		});
 		
@@ -121,7 +122,7 @@ public class InterfaceSalle {
 		salle.add(table6);
 		table6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setUpCommande(commande6, 5, table6);
+				setUpCommande(interfaceCommande6, 5, table6);
 			}
 		});
 		
@@ -133,7 +134,7 @@ public class InterfaceSalle {
 		table7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				setUpCommande(commande7, 6, table7);
+				setUpCommande(interfaceCommande7, 6, table7);
 			}
 		});
 		
@@ -144,7 +145,7 @@ public class InterfaceSalle {
 		salle.add(table8);
 		table8.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setUpCommande(commande8, 7, table8);
+				setUpCommande(interfaceCommande8, 7, table8);
 			}
 		});
 		
@@ -248,6 +249,66 @@ public class InterfaceSalle {
         txtrSalleManger.setBackground(new Color(253, 245, 230));
         txtrSalleManger.setBounds(10, 11, 116, 22);
         salle.add(txtrSalleManger);
+        
+        
+        //Event on closing pour les commandes
+        interfaceCommande1.frmCommande.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                System.out.println("Frame closing");
+                formClosingEvent(interfaceCommande1, 0, table1);
+            }
+        });
+        
+        interfaceCommande2.frmCommande.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                System.out.println("Frame closing");
+            }
+        });
+        
+        interfaceCommande3.frmCommande.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                System.out.println("Frame closing");
+            }
+        });
+        
+        interfaceCommande4.frmCommande.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                System.out.println("Frame closing");
+            }
+        });
+        
+        interfaceCommande5.frmCommande.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                System.out.println("Frame closing");
+            }
+        });
+        
+        interfaceCommande6.frmCommande.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                System.out.println("Frame closing");
+            }
+        });
+        
+        interfaceCommande7.frmCommande.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                System.out.println("Frame closing");
+            }
+        });
+        
+        interfaceCommande8.frmCommande.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                System.out.println("Frame closing");
+            }
+        });
+        
     }
 
     public static void setCouleurTable(JButton button, Table table){
@@ -274,13 +335,13 @@ public class InterfaceSalle {
     }
     
     private void setUpCommande(InterfaceCommande commande, int tableNumber, JButton button) {
-    	
+    	commande.setUp();
     	if(Programme.salle.getTables().get(tableNumber).getEtat() == Table.EtatTable.EN_ATTENTE || Programme.salle.getTables().get(tableNumber).getEtat() == Table.EtatTable.PRET
     			|| Programme.salle.getTables().get(tableNumber).getEtat() == Table.EtatTable.SERVI) {
         	commande.frmCommande.setVisible(true);
     	}
     	
-    	if(Programme.salle.getTables().get(tableNumber).getEtat() == Table.EtatTable.VIDE) {
+    	if(Programme.salle.getTables().get(tableNumber).getEtat() == Table.EtatTable.VIDE || Programme.salle.getTables().get(tableNumber).getEtat() == Table.EtatTable.PRET_A_SERVIR) {
     		
     		Programme.salle.getTables().get(tableNumber).setProchainEtat();
     		setCouleurTable(button, Programme.salle.getTables().get(tableNumber));
@@ -292,6 +353,28 @@ public class InterfaceSalle {
     		commande.setCommande(Programme.gestionCommandes.getLastCommandeActive());
     	}
     	
+    }
+    private void formClosingEvent(InterfaceCommande commande, int tableNumber, JButton button) {
+
+    	if(Programme.salle.getTables().get(tableNumber).getEtat() == Table.EtatTable.PRET && commande.etat == InterfaceCommande.closeResult.OK) {
+    		commande.etat = InterfaceCommande.closeResult.ANNULER;
+    		Programme.salle.getTables().get(tableNumber).setProchainEtat();
+    		setCouleurTable(button, Programme.salle.getTables().get(tableNumber));
+    		Thread thread = new Thread(){
+    		    public void run(){
+    		    	Random r = new Random();
+    		    	int low = 20;
+    		    	int high = 40;
+    		    	int result = r.nextInt(high-low) + low;
+    		    	try {
+						Thread.sleep(result * 1000);
+					} catch (InterruptedException e) {}
+    		    	Programme.salle.getTables().get(tableNumber).setProchainEtat();
+    	    		setCouleurTable(button, Programme.salle.getTables().get(tableNumber));
+    		      }
+    		};
+    		thread.start();
+    	}
     }
     
     public void tableAction(JButton button, Table table){
